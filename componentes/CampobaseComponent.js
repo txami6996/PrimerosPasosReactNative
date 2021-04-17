@@ -19,8 +19,8 @@ class Campobase extends Component {
  
     return (
       <View>
-          <Calendario excursiones={this.state.excursiones} onPress={( excursionId) => this. onSeleccionExcursion(excursionId)} />
-          <DetalleExcursion excursion={this.state.excursiones.filter((excursion) => excursion.id === this.state.seleccionExcursion)[0]} />
+        <DetalleExcursion excursion={this.state.excursiones.filter((excursion) => excursion.id === this.state.seleccionExcursion)[0]} />
+        <Calendario excursiones={this.state.excursiones} onPress={( excursionId) => this. onSeleccionExcursion(excursionId)} />  
       </View>        
   );
     
