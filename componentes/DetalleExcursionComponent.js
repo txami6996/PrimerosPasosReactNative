@@ -31,7 +31,7 @@ class DetalleExcursion extends Component {
           excursiones: EXCURSIONES
       };
   }
-
+//s
   render(){
       const {excursionId} = this.props.route.params;
       return(<RenderExcursion excursion={this.state.excursiones[+excursionId]} />);
