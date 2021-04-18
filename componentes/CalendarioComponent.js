@@ -6,9 +6,9 @@ function Calendario(props) {
 
     const renderCalendarioItem = ({ item, index }) => {
         return (
-            <ListItem key={index} bottomDivider
+            <ListItem key={index} 
                 onPress={() => props.onPress(item.id)}
-                leftAvatar={{ source: require('./imagenes/40Años.png') }}
+                bottomDivider
             >
                 <Avatar source={require('./imagenes/40Años.png')} />
                 <ListItem.Content>
