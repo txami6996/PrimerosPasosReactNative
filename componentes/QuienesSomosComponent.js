@@ -5,6 +5,7 @@ import { ListItem, Avatar } from 'react-native-elements';
 import { SafeAreaView, FlatList } from 'react-native';
 import { HISTORIA } from '../comun/historia';
 import { ACTIVIDADES } from '../comun/actividades';
+
 function Historia(props) {
 
     const item = props.item;
@@ -60,6 +61,7 @@ function RenderCalendarioItem(props) {
         return (<View></View>);
     }
 }
+
 class QuienesSomos extends Component {
 
     constructor(props) {
