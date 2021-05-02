@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import { ListItem, Avatar } from 'react-native-elements';
 import { SafeAreaView, FlatList } from 'react-native';
-import { EXCURSIONES } from '../comun/excursiones';
+//import { EXCURSIONES } from '../comun/excursiones';
+import { connect } from 'react-redux';
+import { baseUrl } from '../comun/comun';
+const mapStateToProps = state => {
+    return {
+        excursiones: state.excursiones
+    }
+  }
 
 class Calendario extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            excursiones: EXCURSIONES
-        };
-    }
-
+    
     render(){
 
     const { navigate } = this.props.navigation;    
@@ -21,7 +22,7 @@ class Calendario extends Component {
                 key={index}
                 onPress={() => navigate('DetalleExcursion', { excursionId: item.id })}
                 bottomDivider>
-                <Avatar source={require('./imagenes/40Años.png')} />
+                <Avatar source={{uri: baseUrl + item.imagen}} />
                 <ListItem.Content>
                     <ListItem.Title>{item.nombre}</ListItem.Title>
                     <ListItem.Subtitle>{item.descripcion}</ListItem.Subtitle>
@@ -33,7 +34,7 @@ class Calendario extends Component {
     return (
         <SafeAreaView>
             <FlatList 
-                data={this.state.excursiones}
+                data={this.props.excursiones.excursiones}
                 renderItem={renderCalendarioItem}
                 keyExtractor={item => item.id.toString()}
             />
@@ -42,4 +43,4 @@ class Calendario extends Component {
     }
 }
 
-export default Calendario;
+export default connect(mapStateToProps)(Calendario);

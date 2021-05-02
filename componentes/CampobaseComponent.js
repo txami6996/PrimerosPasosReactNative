@@ -11,16 +11,35 @@ import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList, } from 
 import { Icon } from 'react-native-elements';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { NavigationContainer, DrawerActions } from '@react-navigation/native';
+import { colorGaztaroaClaro,colorGaztaroaOscuro } from '../comun/comun';
+import { connect } from 'react-redux';
+import { fetchExcursiones, fetchComentarios, fetchCabeceras, fetchActividades } from '../redux/ActionCreators';
+
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
+const mapStateToProps = state => {
+  return {
+    excursiones: state.excursiones,
+    comentarios: state.comentarios,
+    cabeceras: state.cabeceras,
+    actividades: state.actividades
+  }
+}
+
+const mapDispatchToProps = dispatch => ({
+  fetchExcursiones: () => dispatch(fetchExcursiones()),
+  fetchComentarios: () => dispatch(fetchComentarios()),
+  fetchCabeceras: () => dispatch(fetchCabeceras()),
+  fetchActividades: () => dispatch(fetchActividades()),
+})
 
 
 function DrawerNavegador() {
   return (
     <Drawer.Navigator
       drawerStyle={{
-        backgroundColor: '#c2d3da',
+        backgroundColor: colorGaztaroaClaro,
       }}
       initialRouteName="Home"
       drawerContent={props => <CustomDrawerContent {...props} />}
@@ -83,7 +102,7 @@ function CalendarioNavegador({navigation}) {
       headerMode="screen"
       screenOptions={{
         headerTintColor: '#fff',
-        headerStyle: { backgroundColor: '#015afc' },
+        headerStyle: { backgroundColor: colorGaztaroaOscuro },
         headerTitleStyle: { color: '#fff' },
         headerTitleAlign: "center",
        
@@ -114,7 +133,7 @@ function QuienesSomosNavegador({ navigation }) {
       headerMode="screen"
       screenOptions={{
         headerTintColor: '#fff',
-        headerStyle: { backgroundColor: '#015afc' },
+        headerStyle: { backgroundColor: colorGaztaroaOscuro },
         headerTitleStyle: { color: '#fff' },
         headerTitleAlign: "center",
         headerLeft: () => (<Icon name="menu" size={28} color= 'white'  onPress={ () => navigation.dispatch(DrawerActions.toggleDrawer()) }/>),
@@ -146,7 +165,7 @@ function HomeNavegador({navigation}) {
       headerMode="screen"
       screenOptions={{
         headerTintColor: '#fff',
-        headerStyle: { backgroundColor: '#015afc' },
+        headerStyle: { backgroundColor: colorGaztaroaOscuro },
         headerTitleStyle: { color: '#fff' },
         headerTitleAlign: "center",
         headerLeft: () => (<Icon name="menu" size={28} color= 'white'  onPress={ () => navigation.dispatch(DrawerActions.toggleDrawer()) }/>),
@@ -170,7 +189,7 @@ function ContactoNavegador({navigation}) {
       headerMode="screen"
       screenOptions={{
         headerTintColor: '#fff',
-        headerStyle: { backgroundColor: '#015afc' },
+        headerStyle: { backgroundColor: colorGaztaroaOscuro },
         headerTitleStyle: { color: '#fff' },
         headerTitleAlign: "center",
         headerLeft: () => (<Icon name="menu" size={28} color= 'white'  onPress={ () => navigation.dispatch(DrawerActions.toggleDrawer()) }/>),
@@ -206,14 +225,21 @@ function CustomDrawerContent(props) {
 
 
 class Campobase extends Component {
+  componentDidMount() {
+    this.props.fetchExcursiones();
+    this.props.fetchComentarios();
+    this.props.fetchCabeceras();
+    this.props.fetchActividades();
+  }
+
 
   render() {
 
     return (
       <NavigationContainer>
-        <View style={{ flex: 1, paddingTop: Platform.OS === 'ios' ? 0 : Constants.statusBarHeight }}>
+        <View style={{ flex: 1, paddingTop: Platform.OS === 'ios' ? 0 : Constants.statusBarHeight }}>  
           <DrawerNavegador />
-        </View>
+         </View> 
       </NavigationContainer>
     );
   }
@@ -223,7 +249,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   drawerHeader: {
-    backgroundColor: '#015afc',
+    backgroundColor: colorGaztaroaOscuro,
     height: 100,
     alignItems: 'center',
     justifyContent: 'center',
@@ -242,4 +268,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Campobase;
+export default connect(mapStateToProps, mapDispatchToProps)(Campobase);
