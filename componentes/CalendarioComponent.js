@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import { ListItem, Avatar } from 'react-native-elements';
 import { SafeAreaView, FlatList } from 'react-native';
-//import { EXCURSIONES } from '../comun/excursiones';
-import { connect } from 'react-redux';
 import { baseUrl } from '../comun/comun';
+import { connect } from 'react-redux';
+
 const mapStateToProps = state => {
     return {
-        excursiones: state.excursiones
+      excursiones: state.excursiones
     }
   }
 
 class Calendario extends Component {
-    
+
     render(){
 
     const { navigate } = this.props.navigation;    
