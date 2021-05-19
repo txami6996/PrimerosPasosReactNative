@@ -163,3 +163,8 @@ export const addComentario = (excursionId,valoracion,autor,comentario,dia) => ({
     type: ActionTypes.ADD_COMENTARIO,
     payload: excursionId,valoracion,autor,comentario,dia
 });
+
+export const borrarFavorito=(excursionId)=>({
+    type: ActionTypes.BORRAR_FAVORITO,
+    payload: excursionId
+});

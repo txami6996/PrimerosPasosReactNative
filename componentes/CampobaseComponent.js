@@ -6,6 +6,7 @@ import Home from './HomeComponent';
 import QuienesSomos from './QuienesSomosComponent';
 import Contacto from './ContactoComponent';
 import PruebaEsfuerzo from './PruebaEsfuerzoComponent';
+import VistaFavoritos from './VistaFavoritosComponent';
 import { View, StyleSheet, Image, Text } from 'react-native';
 import { NavigationContainer, DrawerActions } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -21,7 +22,8 @@ const mapStateToProps = state => {
     excursiones: state.excursiones,
     comentarios: state.comentarios,
     cabeceras: state.cabeceras,
-    actividades: state.actividades
+    actividades: state.actividades,
+    favoritos:state.favoritos
   }
 }
 
@@ -75,6 +77,29 @@ function QuienesSomosNavegador({ navigation }) {
         component={QuienesSomos}
         options={{
           title: 'Quiénes somos',
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function VistaFavoritosNavegador({ navigation }) {
+  return (
+    <Stack.Navigator
+      initialRouteName="VistaFavoritos"
+      headerMode="screen"
+      screenOptions={{
+        headerTintColor: '#fff',
+        headerStyle: { backgroundColor: colorGaztaroaOscuro },
+        headerTitleStyle: { color: '#fff' },
+        headerLeft: () => (<Icon name="menu" size={28} color= 'white' onPress={ () => navigation.dispatch(DrawerActions.toggleDrawer()) }/>),
+      }}
+    >
+      <Stack.Screen
+        name="VistaFavoritos"
+        component={VistaFavoritos}
+        options={{
+          title: 'VistaFavoritos',
         }}
       />
     </Stack.Navigator>
@@ -225,6 +250,18 @@ function DrawerNavegador() {
             drawerIcon: ({ tintColor}) => (
               <Icon
               name='address-card'
+              type='font-awesome'            
+              size={22}
+              color={tintColor}
+              />
+            )
+            }}
+        />
+        <Drawer.Screen name="ExcursionesFavoritas" component={VistaFavoritosNavegador}
+          options={{
+            drawerIcon: ({ tintColor}) => (
+              <Icon
+              name='thumbs-up'
               type='font-awesome'            
               size={22}
               color={tintColor}

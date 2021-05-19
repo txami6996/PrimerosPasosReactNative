@@ -7,8 +7,13 @@ export const favoritos = (state = [], action) => {
                 return state;
             else
                 return state.concat(action.payload);
-                
+        case ActionTypes.BORRAR_FAVORITO:
+            if (state.some(el => el === action.payload))
+           
+                return state.filter((fav)=>fav !==action.payload);
+            else
+                return state;
         default:
-          return state;
-      }
+            return state;
+    }
 };
