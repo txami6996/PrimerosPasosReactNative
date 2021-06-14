@@ -7,6 +7,7 @@ import QuienesSomos from './QuienesSomosComponent';
 import Contacto from './ContactoComponent';
 import PruebaEsfuerzo from './PruebaEsfuerzoComponent';
 import VistaFavoritos from './VistaFavoritosComponent';
+import CamaraFotos from './CamaraComponent';
 import { View, StyleSheet, Image, Text } from 'react-native';
 import { NavigationContainer, DrawerActions } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -82,7 +83,28 @@ function QuienesSomosNavegador({ navigation }) {
     </Stack.Navigator>
   );
 }
-
+function CamaraNavegador({ navigation }) {
+  return (
+    <Stack.Navigator
+      initialRouteName="Camara"
+      headerMode="screen"
+      screenOptions={{
+        headerTintColor: '#fff',
+        headerStyle: { backgroundColor: colorGaztaroaOscuro },
+        headerTitleStyle: { color: '#fff' },
+        headerLeft: () => (<Icon name="menu" size={28} color= 'white' onPress={ () => navigation.dispatch(DrawerActions.toggleDrawer()) }/>),
+      }}
+    >
+      <Stack.Screen
+        name="Camara"
+        component={CamaraFotos}
+        options={{
+          title: 'Camara de Fotos',
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
 function VistaFavoritosNavegador({ navigation }) {
   return (
     <Stack.Navigator
@@ -187,9 +209,7 @@ function CustomDrawerContent(props) {
     <DrawerContentScrollView {...props}>
       <SafeAreaView style={styles.container} forceInset={{ top: 'always', horizontal: 'never' }}>
         <View style={styles.drawerHeader}>
-          <View style={{flex:1}}>
-          <Image source={require('./imagenes/logo.png')} style={styles.drawerImage} />
-          </View>
+          
           <View style={{flex: 2}}>
             <Text style={styles.drawerHeaderText}> Gaztaroa</Text>
           </View>
@@ -281,6 +301,18 @@ function DrawerNavegador() {
             )
             }}
         />
+        <Drawer.Screen name="Camara" component={CamaraNavegador}
+          options={{
+              drawerIcon: ({ tintColor}) => (
+                <Icon
+                name='camera'
+                type='font-awesome'            
+                size={24}
+                color={tintColor}
+                />
+              )
+              }}
+          />     
       </Drawer.Navigator>
   );
 }
